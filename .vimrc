@@ -1,139 +1,66 @@
-filetype off
+call plug#begin('~/.vim/plugged')
 
-set rtp+=~/.vim/bundle/Vundle.vim
 set rtp+=~/.fzf
 
-call vundle#begin()
+Plug 'fxn/vim-monochrome'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'junegunn/fzf.vim'
+Plug 'dense-analysis/ale'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-Plugin 'fxn/vim-monochrome'
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-fugitive'
-Plugin 'junegunn/fzf.vim'
+call plug#end()
 
-call vundle#end()
+filetype plugin indent on
 
-""""""""""""""""""""
-" General
-""""""""""""""""""""
-
-" Leader key
+"----------------------------------------
+" CONFIGURATION
+"----------------------------------------
+syntax enable
+colorscheme monochrome
+set encoding=utf8
 let mapleader = ","
-
-" Sets how many lines of history VIM has to remember
+set autoindent
+set listchars=tab:▸\ ,eol:¬
+" In insert mode disable Esc key sequences (e.g 'O' has no delay after this).
+set noesckeys
+"set clipboard=unnamedplus
+" Clear gutter design
+highlight clear SignColumn
+" Case sensitive search.
+set smartcase
+" Highlight search results
+set hlsearch
+" Command-lines that you enter are remembered in a history table.
 set history=250
-
-" Line numbers
-set rnu
-set nu
-
-" Disable buffer error E37: No write since last change
+" Scroll offset determines the number of context lines you would like to see
+" above and below the cursor.
+set scrolloff=7
+" Show line numbers in navigation menu.
+set relativenumber
+set number
+" E37: No write since last change.
 set hidden
-
-" Set to auto read when a file is changed from the outside
+" Change cursor when in insert mode
+au InsertEnter * silent execute "!echo -en \<esc>[0 q"
+au InsertLeave * silent execute "!echo -en \<esc>[2 q"
+" Update the file if the change is detected.
 set autoread
-au FocusGained,BufEnter * checktime
-
-" Set 7 lines to the cursor when scrolling
-set so=7
-
-" Allow command line completion
-set wildmenu
-set wildcharm=<C-z>
-nnoremap ,e :e **/*<C-z><S-Tab>
-
-" Fzf
-" [Buffers] Jump to the existing window if possible
-let g:fzf_buffers_jump = 1
-
-" [[B]Commits] Customize the options used by 'git log':
-let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
-
- " [Tags] Command to generate tags file
-let g:fzf_tags_command = 'ctags -R'
-
-" [Commands] --expect expression for directly executing the command
-let g:fzf_commands_expect = 'alt-enter,ctrl-x'
-
+set pumheight=7
+" Provides tab-completion for all file-related tasks
+set path+=**
+let g:airline_powerline_fonts=1
 nnoremap <silent> <leader>o :Files<CR>
 nnoremap <silent> <leader>O :Files!<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <leader>B :Buffers!<CR>
-nnoremap <silent> <leader>s :Rg<CR>
 nnoremap <silent> <leader>l :Lines<CR>
-
-command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
-
-" Search down into subfolders
-" Provides tab-completion for all file-related tasks
-set path+=**
-
-" Ignore compiled command line files
-
-if has("win16") || has("win32")
-    set wildignore+=.git\*,.hg\*,.svn\*
-else
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-endif
-
-set wildignore=*.o,*~,*.pyc
-set wildignore+=*/node_modules/*
-set wildignore+=*/dist/*
-set wildignore+=*/build/*
-
-" After pressing ,e and the directory doesn't exist then it creates one
-" :!mkdir -p %:h
-
-" Ignore case when searching
-set ignorecase
-
-" When searching try to be smart about cases 
-set smartcase
-
-" Highlight search results
-set nohlsearch
-
-" Makes search act like search in modern browsers
-set incsearch 
-
-" Don't redraw while executing macros (good performance config)
-set lazyredraw 
-
-" For regular expressions turn magic on
-set magic
-
-" Show matching brackets when text indicator is over them
-set showmatch 
-
-" How many tenths of a second to blink when matching brackets
-set mat=2
-
-syntax enable
-set encoding=utf8
-
-" Tabbing configuration
-set smarttab
-set tabstop=4
-set shiftwidth=4
-set expandtab
-
-" Delete trailing whitespace on save, useful for some filetypes
-fun! CleanExtraSpaces()
-    let save_cursor = getpos(".")
-    let old_query = getreg('/')
-    silent! %s/\s\+$//e
-    call setpos('.', save_cursor)
-    call setreg('/', old_query)
-endfun
-
-" Enable filetype plugins
-filetype plugin indent on
-filetype plugin on
-filetype indent on
-
-" Disable arrow keys
+nnoremap <silent> <leader>h :History<CR>
+nnoremap <silent> <leader>t :BTags<CR>
+nnoremap <silent> <leader>T :Tags<CR>
+" Disable arrow keys in normal and in insert mode.
 nnoremap <up> <nop>
 nnoremap <down> <nop>
 nnoremap <left> <nop>
@@ -143,20 +70,71 @@ inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
 
-""""""""""""""""""""
-" Plugins
-""""""""""""""""""""
-colorscheme monochrome
+" Ignore compiled command line files.
+if has("win16") || has("win32")
+    set wildignore+=.git\*,.hg\*,.svn\*
+else
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+endif
 
-" nerdtree
-"let NERDTreeMinimalUI = 1
-"let NERDTreeDirArrows = 1
-"let NERDTreeAutoDeleteBuffer = 1
-"map <C-n> :NERDTreeToggle<CR>
+hi Pmenu ctermfg=NONE ctermbg=236 cterm=NONE guifg=NONE guibg=#64666d gui=NONE
+hi PmenuSel ctermfg=NONE ctermbg=240 cterm=NONE guifg=NONE guibg=#204a87 gui=NONE
 
-" On file close, close nerdtree if there are no opened files
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"----------------------------------------
+" PLUGINS
+"----------------------------------------
+
+" FZF
+"----------------------------------------
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
+
+let g:fzf_buffers_jump = 1
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+let g:fzf_tags_command = 'ctags -R'
+let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 
 
-" Create the 'tags' file (may need to install ctags first)
-" ctags -R .
+" ALE
+"----------------------------------------
+" let g:ale_fix_on_save = 1
+let g:ale_sign_error = "◉"
+let g:ale_sign_warning = "◉"
+let g:ale_set_highlights = 0
+highlight ALEErrorSign ctermfg=9 guifg=#C30500 guibg=#F5F5F5
+highlight ALEWarningSign ctermfg=11 guifg=#ED6237 guibg=#F5F5F5
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\}
+
+" Coc
+"----------------------------------------
+nmap <silent> gd :call CocActionAsync('jumpDefinition')<CR>
+nmap <silent> gr <Plug>(coc-references)
+nmap <leader>rn <Plug>(coc-rename)
+
+set nobackup
+set nowritebackup
+set cmdheight=2
+set updatetime=300
+set shortmess+=c
+
+inoremap <silent><expr> <c-@> coc#refresh()
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+" set signcolumn=yes
+
+
+
+"----------------------------------------
+" USEFUL
+"----------------------------------------
+" Guide how to have project specific .vimrc. This
+" is good when projects with same language have different rules.
+" https://andrew.stwrt.ca/posts/project-specific-vimrc/
+"----------------------------------------
+" Create your own rules for that specific file type. If the same
+" rules should be applied to other files aswell then create symlinks.
+" ln -s ~/.vim/after/ftplugin/c.vim ~/.vim/after/ftplugin/cpp.vim
+"----------------------------------------

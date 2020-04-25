@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =7
+let g:netrw_dirhist_7='/home/skoiv/Projects/react-common/packages'
+let g:netrw_dirhist_6='/home/skoiv/.config/chromium/Default'
+let g:netrw_dirhist_5='/home/skoiv/.fzf'
+let g:netrw_dirhist_4='/home/skoiv/Projects/impulss/frontend/src/main/java/ee/rmit/impulss/frontend/pgevents'
+let g:netrw_dirhist_3='/home/skoiv/Projects/impulss/frontend/src/main/java/ee/rmit/impulss/frontend/service'
+let g:netrw_dirhist_2='/home/skoiv/Projects/impulss/frontend/src/main/java/ee/rmit/impulss/frontend/model'
+let g:netrw_dirhist_1='/home/skoiv/Projects/impulss'
+let g:netrw_dirhist_0='/home/skoiv/Projects/impulss/frontend/src/main/java/ee/rmit/impulss/frontend/auditlog'
+let g:netrw_dirhist_9='/home/skoiv/Projects/impulss/frontend/src/main/java/ee/rmit/impulss/frontend/config'
+let g:netrw_dirhist_8='/home/skoiv/Projects/impulss/frontend/src/main/java/ee/rmit/impulss/frontend/controller'
