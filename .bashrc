@@ -17,3 +17,4 @@ export NVM_DIR="$HOME/.nvm"
 export EDITOR=vim
 export DBPATH=/var/lib/postgres/data
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+export PATH="$PATH:$(ruby -e 'puts Gem.user_dir')/bin"

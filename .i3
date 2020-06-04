@@ -52,7 +52,7 @@ bindsym Mod4+Return exec urxvt
 bindsym Mod4+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym Mod4+d exec dmenu_run -sb \#808080 -nb \#3f3f3f
+bindsym Mod4+d exec dmenu_run -sb \#303030 -nb \#121212
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -198,13 +198,13 @@ bar {
 	tray_output none
 	workspace_min_width 30
 	colors {
-		background #3f3f3f
+		background #101010
 		#			border		background	text
-		active_workspace	#3f3f3f 	#3f3f3f		#ffffff
-		#active_workspace 	#505050 	#505050 	#ffffff
-		focused_workspace 	#808080		#808080		#ffffff
-		inactive_workspace	#3f3f3f 	#3f3f3f		#ffffff
-        	urgent_workspace   	#3f3f3f 	#3f3f3f 	#ffce00
+		active_workspace	#101010 	#101010		#ababab
+		#active_workspace 	#505050 	#505050 	#ababab
+		focused_workspace 	#464646		#464646		#ababab
+		inactive_workspace	#101010 	#101010		#ababab
+        	urgent_workspace   	#101010 	#101010 	#ffaf00
 
 	}
 }

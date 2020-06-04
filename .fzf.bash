@@ -32,6 +32,6 @@ gb() {
 
 bind '"\C-g\C-b": "$(gb)\e\C-e\er"'
 
-export FZF_DEFAULT_OPTS="--color=bg+:#262626,fg+:#ffffff --multi --bind='alt-t:toggle-all'"
+export FZF_DEFAULT_OPTS="--color=bg+:#262626,info:15,header:#ff0000,marker:15,prompt:15,fg:245,spinner:15,hl:15,pointer:15,hl+:15 --multi --bind='alt-t:toggle-all'"
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"

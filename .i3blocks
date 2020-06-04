@@ -1,0 +1,72 @@
+# List of valid properties:
+#
+# align
+# color
+# command
+# full_text
+# instance
+# interval
+# label
+# min_width
+# name
+# separator
+# separator_block_width
+# short_text
+# signal
+# urgent
+
+# Global properties
+command=~/.config/i3blocks/scripts/$BLOCK_NAME/$BLOCK_NAME
+separator_block_width=15
+markup=none
+
+# Volume
+[volume]
+label= 
+interval=1
+signal=10
+color=#ababab
+
+# Memory usage
+[memory]
+label= 
+interval=1
+color=#ababab
+
+# Cpu usage
+[cpu_usage2]
+markup=pango
+interval=persist
+min_width=CPU 100.00%
+REFRESH_TIME=1
+WARN_PERCENT=50
+CRIT_PERCENT=80
+DECIMALS=2
+LABEL=
+label=
+color=#ababab
+
+# Network interface monitoring
+[iface]
+label= 
+interval=10
+separator=true
+color=#ababab
+
+#[wifi]
+#INTERFACE=wlp3s0
+#interval=10
+#separator=true
+
+# Battery indicator
+[battery]
+label= 
+interval=30
+color=#ababab
+
+# Date Time
+[time]
+label= 
+command=date '+%Y-%m-%d %H:%M:%S'
+interval=1
+color=#ababab

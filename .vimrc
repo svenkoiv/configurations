@@ -2,14 +2,25 @@ call plug#begin('~/.vim/plugged')
 
 set rtp+=~/.fzf
 
-Plug 'fxn/vim-monochrome'
+" Plug 'fxn/vim-monochrome'
+" Plug 'Lokaltog/vim-monotone'
+" Plug 'chriskempson/base16-vim'
+" Plug 'ap/vim-css-color'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'junegunn/fzf.vim'
 Plug 'dense-analysis/ale'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'peitalin/vim-jsx-typescript'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+
+" Plug 'maxmellon/vim-jsx-pretty'
+" Plug 'sheerun/vim-polyglot'
+" Plug 'ycm-core/YouCompleteMe'
 
 call plug#end()
 
@@ -19,14 +30,14 @@ filetype plugin indent on
 " CONFIGURATION
 "----------------------------------------
 syntax enable
-colorscheme monochrome
+colorscheme base16-grayscale-dark
+"colorscheme monotone
 set encoding=utf8
 let mapleader = ","
 set autoindent
 set listchars=tab:▸\ ,eol:¬
 " In insert mode disable Esc key sequences (e.g 'O' has no delay after this).
 set noesckeys
-"set clipboard=unnamedplus
 " Clear gutter design
 highlight clear SignColumn
 " Case sensitive search.
@@ -37,8 +48,8 @@ set hlsearch
 set history=250
 " Scroll offset determines the number of context lines you would like to see
 " above and below the cursor.
-set scrolloff=7
-" Show line numbers in navigation menu.
+set scrolloff=5
+" Show line numbers in the line gutter.
 set relativenumber
 set number
 " E37: No write since last change.
@@ -52,6 +63,7 @@ set pumheight=7
 " Provides tab-completion for all file-related tasks
 set path+=**
 let g:airline_powerline_fonts=1
+nnoremap <silent> <leader>e :Explore<CR>
 nnoremap <silent> <leader>o :Files<CR>
 nnoremap <silent> <leader>O :Files!<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
@@ -60,6 +72,7 @@ nnoremap <silent> <leader>l :Lines<CR>
 nnoremap <silent> <leader>h :History<CR>
 nnoremap <silent> <leader>t :BTags<CR>
 nnoremap <silent> <leader>T :Tags<CR>
+nnoremap <silent> <leader>c :Commands<CR>
 " Disable arrow keys in normal and in insert mode.
 nnoremap <up> <nop>
 nnoremap <down> <nop>
@@ -109,17 +122,17 @@ let g:ale_fixers = {
 
 " Coc
 "----------------------------------------
-nmap <silent> gd :call CocActionAsync('jumpDefinition')<CR>
-nmap <silent> gr <Plug>(coc-references)
-nmap <leader>rn <Plug>(coc-rename)
+" nmap <silent> gd :call CocActionAsync('jumpDefinition')<CR>
+" nmap <silent> gr <Plug>(coc-references)
+" nmap <leader>rn <Plug>(coc-rename)
 
-set nobackup
-set nowritebackup
-set cmdheight=2
-set updatetime=300
-set shortmess+=c
+" set nobackup
+" set nowritebackup
+" set cmdheight=2
+" set updatetime=300
+" set shortmess+=c
 
-inoremap <silent><expr> <c-@> coc#refresh()
+" inoremap <silent><expr> <c-@> coc#refresh()
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
@@ -138,3 +151,4 @@ inoremap <silent><expr> <c-@> coc#refresh()
 " rules should be applied to other files aswell then create symlinks.
 " ln -s ~/.vim/after/ftplugin/c.vim ~/.vim/after/ftplugin/cpp.vim
 "----------------------------------------
+

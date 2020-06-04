@@ -14,8 +14,8 @@ XTerm*locale: true
 XTerm*BorderWidth: 0
 ! XTerm*BorderColor: #898989
 XTerm*foreground: #ffffff
-XTerm*background: #3f3f3f
-XTerm*cursorColor: #ffffff
+XTerm*background: #121212
+/* XTerm*cursorColor: #ffaf00 */
 XTerm*cursorBlink: true
 ! Every shell is a login shell by default (for inclusion of all necessary environment variables)
 XTerm*loginshell: true
@@ -24,10 +24,10 @@ URxvt*imLocale: en_US.UTF-8
 URxvt*termName: rxvt-unicode-256color
 Urxvt*buffered: false
 URxvt.intensityStyles: false
-URxvt.font: xft:DejaVu Sans Mono:size=11
+URxvt.font: xft:DejaVu Sans Mono:size=10
 URxvt.saveLines: 2000
 URxvt.scrollBar: false
-URxvt.cursorColor: #ffce00
+URxvt.cursorColor: #ffaf00
 URxvt.cursorBlink: 1
 URxvt*saveLines:0
 URxvt.keysym.Shift-Control-V: eval:paste_clipboard
@@ -36,42 +36,41 @@ URxvt.keysym.Shift-Control-V: eval:paste_clipboard
 URxvt.keysym.Control-Meta-v: builtin-string:
 URxvt.iso14755 : false;
 
+#define base00 #101010
+#define base01 #252525
+#define base02 #464646
+#define base03 #525252
+#define base04 #ababab
+#define base05 #b9b9b9
+#define base06 #e3e3e3
+#define base07 #f7f7f7
+#define base08 #7c7c7c
+#define base09 #999999
+#define base0A #a0a0a0
+#define base0B #8e8e8e
+#define base0C #868686
+#define base0D #686868
+#define base0E #747474
+#define base0F #5e5e5e
 
+*foreground:   base05
+*background:   base00
+/* *cursorColor:  base05 */
 
-! special
-*.foreground:   #ffffff
-*.background:   #3f3f3f
-*.cursorColor:  #ffffff
+*color0:       base00
+*color1:       base08
+*color2:       base0B
+*color3:       base0A
+*color4:       base0D
+*color5:       base0E
+*color6:       base0C
+*color7:       base05
 
-! black
-*.color0:       #101010
-*.color8:       #434758
-
-! red
-*.color1:       #f07178
-*.color9:       #ff8b92
-
-! green
-*.color2:       #c3e88d
-*.color10:      #ddffa7
-
-! yellow
-*.color3:       #ffcb6b
-*.color11:      #ffe585
-
-! blue
-*.color4:       #82aaff
-*.color12:      #9cc4ff
-
-! magenta
-*.color5:       #c792ea
-*.color13:      #e1acff
-
-! cyan
-*.color6:       #89ddff
-*.color14:      #a3f7ff
-
-! white
-*.color7:       #d0d0d0
-*.color15:      #ffffff
-
+*color8:       base03
+*color9:       base09
+*color10:      base01
+*color11:      base02
+*color12:      base04
+*color13:      base06
+*color14:      base0F
+*color15:      base07
