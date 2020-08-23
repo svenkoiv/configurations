@@ -2,68 +2,77 @@ call plug#begin('~/.vim/plugged')
 
 set rtp+=~/.fzf
 
-" Plug 'fxn/vim-monochrome'
-" Plug 'Lokaltog/vim-monotone'
-" Plug 'chriskempson/base16-vim'
-" Plug 'ap/vim-css-color'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'tpope/vim-surround'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } 
+Plug 'junegunn/fzf.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'preservim/nerdtree'
+Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-apathy'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
-Plug 'junegunn/fzf.vim'
-Plug 'dense-analysis/ale'
-" Plug 'peitalin/vim-jsx-typescript'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-
-" Plug 'maxmellon/vim-jsx-pretty'
-" Plug 'sheerun/vim-polyglot'
-" Plug 'ycm-core/YouCompleteMe'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
 
 call plug#end()
-
-filetype plugin indent on
 
 "----------------------------------------
 " CONFIGURATION
 "----------------------------------------
-syntax enable
 colorscheme base16-grayscale-dark
-"colorscheme monotone
+" When 'wildmenu' is on, command-line completion operates in an enhanced
+" mode.  On pressing 'wildchar' (usually <Tab>) to invoke completion,
+set wildmenu
 set encoding=utf8
 let mapleader = ","
 set autoindent
 set listchars=tab:▸\ ,eol:¬
-" In insert mode disable Esc key sequences (e.g 'O' has no delay after this).
-set noesckeys
-" Clear gutter design
+set relativenumber
+set number
+" Fix noticable delay when pressing 'O'.
+set timeoutlen=1000
+set ttimeoutlen=0
+" Gutter has design which is not same as default background
 highlight clear SignColumn
-" Case sensitive search.
+" Make search case sensitive.
 set smartcase
 " Highlight search results
 set hlsearch
-" Command-lines that you enter are remembered in a history table.
-set history=250
+" Amount of commands which are stored in history table.
+set history=350
 " Scroll offset determines the number of context lines you would like to see
-" above and below the cursor.
+" above and below the cursor. 
 set scrolloff=5
-" Show line numbers in the line gutter.
-set relativenumber
-set number
-" E37: No write since last change.
+" It should be possible to open buffers without saving current buffer. (E37: No write since last change).
 set hidden
-" Change cursor when in insert mode
-au InsertEnter * silent execute "!echo -en \<esc>[0 q"
+" Display different cursors when in insert mode
+au InsertEnter * silent execute "!echo -en \<esc>[5 q"
 au InsertLeave * silent execute "!echo -en \<esc>[2 q"
-" Update the file if the change is detected.
+" When a file has been detected to have been changed outside of Vim and
+" it has not been changed inside of Vim, automatically read it again.
 set autoread
+" Determines the maximum number of items to show in the popup menu for
+" Insert mode completion.  When zero as much space as available is used.
 set pumheight=7
-" Provides tab-completion for all file-related tasks
-set path+=**
-let g:airline_powerline_fonts=1
-nnoremap <silent> <leader>e :Explore<CR>
+" Discourage the use of arrow keys
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+" Custom colors for autocompletion
+hi Pmenu ctermfg=NONE ctermbg=236 cterm=NONE guifg=NONE guibg=#64666d gui=NONE
+hi PmenuSel ctermfg=NONE ctermbg=240 cterm=NONE guifg=NONE guibg=#204a87 gui=NONE
+
+"----------------------------------------
+" PLUGIN CONFIGURATIONS
+"----------------------------------------
+" FZF
+"----------------------------------------
 nnoremap <silent> <leader>o :Files<CR>
 nnoremap <silent> <leader>O :Files!<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
@@ -73,82 +82,45 @@ nnoremap <silent> <leader>h :History<CR>
 nnoremap <silent> <leader>t :BTags<CR>
 nnoremap <silent> <leader>T :Tags<CR>
 nnoremap <silent> <leader>c :Commands<CR>
-" Disable arrow keys in normal and in insert mode.
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
+nnoremap <silent> <leader>, :only<CR>
 
-" Ignore compiled command line files.
-if has("win16") || has("win32")
-    set wildignore+=.git\*,.hg\*,.svn\*
-else
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-endif
-
-hi Pmenu ctermfg=NONE ctermbg=236 cterm=NONE guifg=NONE guibg=#64666d gui=NONE
-hi PmenuSel ctermfg=NONE ctermbg=240 cterm=NONE guifg=NONE guibg=#204a87 gui=NONE
-
-"----------------------------------------
-" PLUGINS
-"----------------------------------------
-
-" FZF
-"----------------------------------------
 command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
-
 let g:fzf_buffers_jump = 1
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 let g:fzf_tags_command = 'ctags -R'
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 
-
-" ALE
-"----------------------------------------
-" let g:ale_fix_on_save = 1
-let g:ale_sign_error = "◉"
-let g:ale_sign_warning = "◉"
-let g:ale_set_highlights = 0
-highlight ALEErrorSign ctermfg=9 guifg=#C30500 guibg=#F5F5F5
-highlight ALEWarningSign ctermfg=11 guifg=#ED6237 guibg=#F5F5F5
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\}
-
 " Coc
 "----------------------------------------
-" nmap <silent> gd :call CocActionAsync('jumpDefinition')<CR>
-" nmap <silent> gr <Plug>(coc-references)
-" nmap <leader>rn <Plug>(coc-rename)
+set nobackup
+set nowritebackup
+set cmdheight=2
+set updatetime=300
+set shortmess+=c
+set signcolumn=yes
 
-" set nobackup
-" set nowritebackup
-" set cmdheight=2
-" set updatetime=300
-" set shortmess+=c
+nmap <silent> <leader>gd <Plug>(coc-definition)
+nmap <silent> <leader>gr <Plug>(coc-references)
+nmap <silent> <leader>gy <Plug>(coc-type-definition)
+nmap <silent> <leader>gi <Plug>(coc-implementation)
+nmap <silent> <leader>gn <Plug>(coc-rename)
 
-" inoremap <silent><expr> <c-@> coc#refresh()
+let g:coc_global_extensions = [
+        \ 'coc-css',
+        \ 'coc-html',
+        \ 'coc-json',
+        \ 'coc-tsserver',
+        \ 'coc-prettier',
+        \ 'coc-eslint',
+        \ 'coc-tslint',
+        \ 'coc-marketplace',
+        \ 'coc-java',
+        \ ]
 
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-" set signcolumn=yes
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
-
-
+" NERDTree
 "----------------------------------------
-" USEFUL
-"----------------------------------------
-" Guide how to have project specific .vimrc. This
-" is good when projects with same language have different rules.
-" https://andrew.stwrt.ca/posts/project-specific-vimrc/
-"----------------------------------------
-" Create your own rules for that specific file type. If the same
-" rules should be applied to other files aswell then create symlinks.
-" ln -s ~/.vim/after/ftplugin/c.vim ~/.vim/after/ftplugin/cpp.vim
-"----------------------------------------
-
+nnoremap <silent> <leader>nt :NERDTreeToggle<CR>
+nnoremap <silent> <leader>nf :NERDTreeFind<CR>
