@@ -1,5 +1,4 @@
 {
-  "diagnostic.errorSign": "✘",
-  "diagnostic.warningSign": "◉",
-  "diagnostic.infoSign": "◉"
+	"diagnostic.displayByAle": true,
+  "eslint.autoFixOnSave": true
 }

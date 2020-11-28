@@ -6,14 +6,15 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } 
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'preservim/nerdtree'
 Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-apathy'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'dense-analysis/ale'
+Plug 'vimwiki/vimwiki'
+Plug 'tpope/vim-vinegar'
 
 call plug#end()
 
@@ -31,7 +32,7 @@ set listchars=tab:▸\ ,eol:¬
 set relativenumber
 set number
 " Fix noticable delay when pressing 'O'.
-set timeoutlen=1000
+set timeoutlen=500
 set ttimeoutlen=0
 " Gutter has design which is not same as default background
 highlight clear SignColumn
@@ -67,6 +68,7 @@ inoremap <right> <nop>
 " Custom colors for autocompletion
 hi Pmenu ctermfg=NONE ctermbg=236 cterm=NONE guifg=NONE guibg=#64666d gui=NONE
 hi PmenuSel ctermfg=NONE ctermbg=240 cterm=NONE guifg=NONE guibg=#204a87 gui=NONE
+" nnoremap <silent> <leader>, :only<CR>
 
 "----------------------------------------
 " PLUGIN CONFIGURATIONS
@@ -78,20 +80,20 @@ nnoremap <silent> <leader>O :Files!<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <leader>B :Buffers!<CR>
 nnoremap <silent> <leader>l :Lines<CR>
-nnoremap <silent> <leader>h :History<CR>
-nnoremap <silent> <leader>t :BTags<CR>
-nnoremap <silent> <leader>T :Tags<CR>
+nnoremap <silent> <leader>h: :History:<CR>
+nnoremap <silent> <leader>h/ :History/<CR>
 nnoremap <silent> <leader>c :Commands<CR>
-nnoremap <silent> <leader>, :only<CR>
+nnoremap <silent> <leader>m :Marks<CR>
+inoremap <expr> <c-x><c-f> fzf#vim#complete#path('fd')
 
 command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
+            \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
 let g:fzf_buffers_jump = 1
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 let g:fzf_tags_command = 'ctags -R'
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 
-" Coc
+" COC
 "----------------------------------------
 set nobackup
 set nowritebackup
@@ -104,23 +106,43 @@ nmap <silent> <leader>gd <Plug>(coc-definition)
 nmap <silent> <leader>gr <Plug>(coc-references)
 nmap <silent> <leader>gy <Plug>(coc-type-definition)
 nmap <silent> <leader>gi <Plug>(coc-implementation)
-nmap <silent> <leader>gn <Plug>(coc-rename)
+nmap <silent> <leader>rn <Plug>(coc-rename)
+nmap <silent> <leader>[g <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>]g <Plug>(coc-diagnostic-next)
+nmap <silent> <leader>ac <Plug>(coc-codeaction)
 
 let g:coc_global_extensions = [
-        \ 'coc-css',
-        \ 'coc-html',
-        \ 'coc-json',
-        \ 'coc-tsserver',
-        \ 'coc-prettier',
-        \ 'coc-eslint',
-        \ 'coc-tslint',
-        \ 'coc-marketplace',
-        \ 'coc-java',
-        \ ]
+            \ 'coc-css',
+            \ 'coc-html',
+            \ 'coc-json',
+            \ 'coc-tsserver',
+            \ 'coc-prettier',
+            \ 'coc-eslint',
+            \ 'coc-tslint',
+            \ 'coc-marketplace',
+            \ ]
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
-" NERDTree
+
+" ALE
 "----------------------------------------
-nnoremap <silent> <leader>nt :NERDTreeToggle<CR>
-nnoremap <silent> <leader>nf :NERDTreeFind<CR>
+let g:ale_sign_error = "◉"
+let g:ale_sign_warning = "◉"
+let g:ale_set_highlights = 0
+highlight ALEErrorSign ctermfg=9 guifg=#C30500 guibg=#F5F5F5
+highlight ALEWarningSign ctermfg=11 guifg=#ED6237 guibg=#F5F5F5
+
+" NETRW
+"----------------------------------------
+let g:netrw_liststyle=0
+" Directories on the top, files below
+let g:netrw_sort_sequence='[\/]$,*'
+" Keep the cursor in the netrw window
+let g:netrw_preview=1
+" Remove the banner
+let g:netrw_banner=0
+" Filetree start exploring from root path
+nnoremap <silent> <leader>nt :Ntree<CR>
+" Filetree start exploring from file path
+nnoremap <silent> <leader>nf :Explore %:h<CR>
