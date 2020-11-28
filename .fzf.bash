@@ -1,16 +1,16 @@
 # Setup fzf
 # ---------
-if [[ ! "$PATH" == */home/sven/.fzf/bin* ]]; then
-	export PATH="${PATH:+${PATH}:}/home/sven/.fzf/bin"
+if [[ ! "$PATH" == */$HOME/.fzf/bin* ]]; then
+	export PATH="${PATH:+${PATH}:}/$HOME/.fzf/bin"
 fi
 
 # Auto-completion
 # ---------------
-[[ $- == *i* ]] && source "/home/sven/.fzf/shell/completion.bash" 2> /dev/null
+[[ $- == *i* ]] && source "/$HOME/.fzf/shell/completion.bash" 2> /dev/null
 
 # Key bindings
 # ------------
-source "/home/sven/.fzf/shell/key-bindings.bash"
+source "/$HOME/.fzf/shell/key-bindings.bash"
 
 is_in_git_repo() {
 	git rev-parse HEAD > /dev/null 2>&1

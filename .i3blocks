@@ -21,7 +21,7 @@ separator_block_width=15
 markup=none
 
 # Volume
-[volume-pulseaudio]
+[volume]
 label= 
 interval=1
 signal=10

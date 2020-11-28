@@ -15,12 +15,12 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export EDITOR=vim
+export DBPATH=/var/lib/postgres/data
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 export PATH="$PATH:$(ruby -e 'puts Gem.user_dir')/bin"
 
 # Configure command history
 export HISTSIZE=3000
 export HISTFILESIZE=3000
-# XTERM works better through ssh
-export TERM=xterm-256color
-# To append commands to the history file, rather than overwrite it, add the following line to ~/.bashrc
+# To append commands to the history file, rather than overwrite it, add the following line to ~/.bashrc:
 shopt -s histappend

@@ -154,7 +154,7 @@ bindsym Mod4+Shift+0 move container to workspace number $ws10
 
 # assign [class="Spotify"] $ws9
 for_window [class="Spotify"] move to workspace $ws9
-for_window [class="Riot"] move to workspace $ws8
+for_window [class="Element"] move to workspace $ws8
 for_window [class="Postman"] move to workspace $ws2
 
 # reload the configuration file
@@ -195,6 +195,7 @@ bindsym Mod4+r mode "resize"
 bar {
 	position top
         status_command i3blocks -c ~/.config/i3blocks/config
+  # Remove next line if you would like to see some of the system tray icons
 	tray_output none
 	workspace_min_width 30
 	colors {

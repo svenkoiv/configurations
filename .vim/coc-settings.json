@@ -1,4 +1,9 @@
 {
-	"diagnostic.displayByAle": true,
-  "eslint.autoFixOnSave": true
+  "eslint.autoFixOnSave": true,
+  "diagnostic.displayByAle": true,
+  "snippets.extends": {
+    "javascriptreact": ["javascript"],
+    "typescript": ["javascript"],
+    "typescriptreact": ["javascript"]
+  }
 }

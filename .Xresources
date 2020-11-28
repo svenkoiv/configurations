@@ -7,7 +7,7 @@ Xft.hintstyle: hintfull
 Xft.lcdfilter: lcdfilter
 
 XTerm*renderFont: true
-XTerm*faceName: DejaVu Sans Mono 11
+XTerm*faceName: DejaVu Sans Mono 10
 XTerm*faceSize: 12
 XTerm*utf8: 2
 XTerm*locale: true
@@ -25,11 +25,10 @@ URxvt*termName: rxvt-unicode-256color
 Urxvt*buffered: false
 URxvt.intensityStyles: false
 URxvt.font: xft:DejaVu Sans Mono:size=10
-URxvt.saveLines: 2000
+URxvt.saveLines: 5000
 URxvt.scrollBar: false
 URxvt.cursorColor: #ffffff
-URxvt.cursorBlink: 1
-URxvt*saveLines:0
+URxvt.cursorBlink: 0
 URxvt.keysym.Shift-Control-V: eval:paste_clipboard
 ! URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
 ! URxvt.keysym.Control-Meta-c: builtin-string:
@@ -55,6 +54,7 @@ URxvt.iso14755 : false;
 
 *foreground:   base05
 *background:   base00
+/* *cursorColor:  base05 */
 
 *color0:       base00
 *color1:       base08
