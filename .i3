@@ -15,7 +15,7 @@
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:DejaVu Sans Mono 11
+font pango:DejaVu Sans Mono 10
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -190,6 +190,7 @@ mode "resize" {
 }
 
 bindsym Mod4+r mode "resize"
+#
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
@@ -199,13 +200,12 @@ bar {
 	tray_output none
 	workspace_min_width 30
 	colors {
-		background #101010
-		#			border		background	text
-		active_workspace	#101010 	#101010		#ababab
-		#active_workspace 	#505050 	#505050 	#ababab
-		focused_workspace 	#464646		#464646		#ababab
-		inactive_workspace	#101010 	#101010		#ababab
-        	urgent_workspace   	#101010 	#101010 	#ffaf00
+		background #1d2021
+		# border, background, text
+		active_workspace	#1d2021 	#1d2021		#ebdbb2
+		focused_workspace 	#a89984 #a89984 #1d2021
+		inactive_workspace	#1d2021 	#1d2021		#ebdbb2
+    urgent_workspace   	#1d2021 	#1d2021 	#ffaf00
 
 	}
 }

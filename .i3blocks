@@ -25,13 +25,13 @@ markup=none
 label= 
 interval=1
 signal=10
-color=#ababab
+color=#ebdbb2
 
 # Memory usage
 [memory]
 label= 
 interval=1
-color=#ababab
+color=#ebdbb2
 
 # Cpu usage
 [cpu_usage2]
@@ -44,14 +44,14 @@ CRIT_PERCENT=80
 DECIMALS=2
 LABEL=
 label=
-color=#ababab
+color=#ebdbb2
 
 # Network interface monitoring
 [iface]
 label= 
 interval=10
 separator=true
-color=#ababab
+color=#ebdbb2
 
 #[wifi]
 #INTERFACE=wlp3s0
@@ -62,11 +62,11 @@ color=#ababab
 [battery]
 label= 
 interval=30
-color=#ababab
+color=#ebdbb2
 
 # Date Time
 [time]
 label= 
 command=date '+%Y-%m-%d %H:%M:%S'
 interval=1
-color=#ababab
+color=#ebdbb2

@@ -16,13 +16,19 @@ Plug 'vimwiki/vimwiki'
 Plug 'dense-analysis/ale'
 Plug 'tpope/vim-vinegar'
 Plug 'honza/vim-snippets'
+Plug 'morhetz/gruvbox'
 
 call plug#end()
 
 "----------------------------------------
 " CONFIGURATION
 "----------------------------------------
-colorscheme base16-grayscale-dark
+set background=dark
+let g:gruvbox_contrast_dark='hard'
+let g:gruvbox_bold=1
+let g:gruvbox_invert_selection=0
+colorscheme gruvbox
+highlight Normal ctermbg=NONE
 " When 'wildmenu' is on, command-line completion operates in an enhanced
 " mode.  On pressing 'wildchar' to invoke completion,
 set wildmenu
