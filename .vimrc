@@ -20,15 +20,28 @@ Plug 'morhetz/gruvbox'
 
 call plug#end()
 
-"----------------------------------------
-" CONFIGURATION
+" COLORS
 "----------------------------------------
 set background=dark
-let g:gruvbox_contrast_dark='hard'
+let g:gruvbox_contrast_dark='soft'
 let g:gruvbox_bold=1
 let g:gruvbox_invert_selection=0
 colorscheme gruvbox
+
+" Gutter has design which is not same as default background
+"highlight clear SignColumn
 highlight Normal ctermbg=NONE
+" Display different cursors when in insert mode
+" Autocommands should be groupped, because sourcing .vimrc duplicates
+" autocommadns and makes vim slower
+augroup cursorStyle
+  autocmd!
+  autocmd InsertEnter * silent execute "!echo -en \<esc>[5 q"
+  autocmd InsertLeave * silent execute "!echo -en \<esc>[2 q"
+augroup END
+
+" CONFIGURATION
+"----------------------------------------
 " When 'wildmenu' is on, command-line completion operates in an enhanced
 " mode.  On pressing 'wildchar' to invoke completion,
 set wildmenu
@@ -44,8 +57,6 @@ set number
 set timeoutlen=500
 " Fix noticable delay when pressing 'O'.
 set ttimeoutlen=0
-" Gutter has design which is not same as default background
-highlight clear SignColumn
 " Make search case sensitive.
 set smartcase
 " Highlight search results
@@ -57,14 +68,6 @@ set history=350
 set scrolloff=5
 " It should be possible to open buffers without saving current buffer. (E37: No write since last change).
 set hidden
-" Display different cursors when in insert mode
-" Autocommands should be groupped, because sourcing .vimrc duplicates
-" autocommadns and makes vim slower
-augroup cursorStyle
-  autocmd!
-  autocmd InsertEnter * silent execute "!echo -en \<esc>[5 q"
-  autocmd InsertLeave * silent execute "!echo -en \<esc>[2 q"
-augroup END
 " When a file has been detected to have been changed outside of Vim and
 " it has not been changed inside of Vim, automatically read it again.
 set autoread
@@ -116,15 +119,17 @@ function TranslateLine()
    endif
 endfunction
 
+function Token()
+  silent execute "!node /home/skoiv/Personal/auth/index.js"
+  silent execute "normal \<c-l>"
+  silent execute "!pm2 restart impulss"
+endfunction
 
-command! -bang -nargs=? -complete=dir Translate
-      \ call Translate(), <bang>0
+command! -bang -nargs=? -complete=function Translate
+      \ call Translate()
+command! -bang -nargs=? -complete=function Token
+      \ call Token()
 
-" Custom colors for autocompletion
-hi Pmenu ctermfg=NONE ctermbg=236 cterm=NONE guifg=NONE guibg=#64666d gui=NONE
-hi PmenuSel ctermfg=NONE ctermbg=240 cterm=NONE guifg=NONE guibg=#204a87 gui=NONE
-
-"----------------------------------------
 " PLUGIN CONFIGURATIONS
 "----------------------------------------
 " FZF
@@ -193,11 +198,7 @@ let g:coc_global_extensions = [
 
 " ALE
 "----------------------------------------
-let g:ale_sign_error = "◉"
-let g:ale_sign_warning = "◉"
 let g:ale_set_highlights = 0
-highlight ALEErrorSign ctermfg=9 guifg=#C30500 guibg=#F5F5F5
-highlight ALEWarningSign ctermfg=11 guifg=#ED6237 guibg=#F5F5F5
 
 " NETRW
 "----------------------------------------
@@ -208,13 +209,15 @@ let g:netrw_sort_sequence='[\/]$,*'
 " Keep the cursor in the netrw window
 let g:netrw_preview=1
 " Remove the banner
-let g:netrw_banner = 0
+let g:netrw_banner=0
 nnoremap <silent> <leader>nt :Ntree<CR>
-" B
 " Open file tree on current file
 nnoremap <silent> <leader>nf :Explore<CR>
 
-" Coc snippets
+" COC SNIPPETS
+"----------------------------------------
 " <c-j> jump to next placeholder
 " <c-k> jump to previous placeholder
+" <c-y> to select and expand
+" <c-e> to expand immediately
 imap <C-e> <Plug>(coc-snippets-expand)

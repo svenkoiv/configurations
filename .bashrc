@@ -15,10 +15,14 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export EDITOR=vim
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 export PATH="$PATH:$(ruby -e 'puts Gem.user_dir')/bin"
 
 # Configure command history
-export HISTSIZE=3000
-export HISTFILESIZE=3000
-# To append commands to the history file, rather than overwrite it, add the following line to ~/.bashrc:
+HISTCONTROL=erasedups:ignoreboth
+HISTIGNORE='exit:cd:ls:bg:fg:history:f:fd'
+HISTSIZE=10000
+HISTFILESIZE=10000
+
+# To append commands to the history file, rather than overwrite it
 shopt -s histappend
